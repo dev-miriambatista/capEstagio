@@ -23,7 +23,6 @@ public class ListarAluno extends JInternalFrame {
         setSize(950, 520);
         setLayout(null);
 
-        // --- FUNDO COM GRADIENTE (igual à TelaPrincipal) ---
         JPanel painelFundo = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -39,14 +38,12 @@ public class ListarAluno extends JInternalFrame {
         painelFundo.setLayout(null);
         setContentPane(painelFundo);
 
-        // --- TÍTULO ---
         JLabel labelTitulo = new JLabel("Lista de Alunos");
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
         labelTitulo.setForeground(Color.WHITE);
         labelTitulo.setBounds(20, 15, 300, 30);
         add(labelTitulo);
 
-        // --- TABELA ---
         modeloTabela = new DefaultTableModel(new String[]{
                 "Matrícula", "Nome", "Curso", "Período", "E-mail", "Telefone"
         }, 0) {
@@ -65,7 +62,6 @@ public class ListarAluno extends JInternalFrame {
         TB_Aluno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TB_Aluno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Header com cor do tema
         JTableHeader header = TB_Aluno.getTableHeader();
         header.setBackground(new Color(44, 62, 80));
         header.setForeground(Color.WHITE);
@@ -79,7 +75,6 @@ public class ListarAluno extends JInternalFrame {
         scroll.setBorder(BorderFactory.createLineBorder(new Color(41, 128, 185), 1));
         add(scroll);
 
-        // --- BOTÕES (abaixo, à direita, padrão do sistema) ---
         JButton botaoExcluir = new JButton("Excluir");
         botaoExcluir.setBounds(560, 440, 110, 40);
         Estilo.estilizarBotao(botaoExcluir);
@@ -89,24 +84,6 @@ public class ListarAluno extends JInternalFrame {
         botaoEditar.setBounds(680, 440, 110, 40);
         Estilo.estilizarBotao(botaoEditar);
         add(botaoEditar);
-
-        JButton botaoNovo = new JButton("Novo");
-        botaoNovo.setBounds(800, 440, 110, 40);
-        Estilo.estilizarBotao(botaoNovo);
-        add(botaoNovo);
-
-        // --- AÇÃO: NOVO ---
-        botaoNovo.addActionListener(e -> {
-            TelaAluno telaAluno = new TelaAluno();
-            telaAluno.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
-                @Override
-                public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-                    carregarTabela();
-                }
-            });
-            getDesktopPane().add(telaAluno);
-            telaAluno.setVisible(true);
-        });
 
         // --- AÇÃO: EDITAR ---
         botaoEditar.addActionListener(e -> {
