@@ -6,6 +6,16 @@ O **CapEstagio** é um sistema desktop desenvolvido para auxiliar no gerenciamen
 
 O projeto foi desenvolvido com foco na organização das informações, automatização dos processos e aplicação de conceitos de orientação a objetos, persistência de dados e arquitetura em camadas.
 
+Projeto desenvolvido pela equipe **Capivaras Tech**, como entrega da disciplina de Programação Orientada a Objetos, no curso de Análise e Desenvolvimento de Sistemas (3º período) da Faculdade Senac São José dos Pinhais.
+
+---
+
+## 📦 Download
+
+**[Baixar o instalador (.exe)](#)** — disponível na página de [Releases](#) *(link a atualizar)*
+
+Não precisa instalar nenhum banco de dados nem configurar nada: o sistema usa **SQLite embutido**, e o banco (`capestagio.db`) é criado automaticamente na primeira execução.
+
 ---
 
 ## 🚀 Funcionalidades
@@ -48,26 +58,27 @@ O projeto foi desenvolvido com foco na organização das informações, automati
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
-## Linguagem
+### Linguagem
 
-* ☕ Java
+* ☕ Java 17
 
-## Interface Gráfica
+### Interface Gráfica
 
 * Java Swing
 
-## Persistência de Dados
+### Persistência de Dados
 
 * Jakarta Persistence API (JPA)
 * Hibernate ORM
 
-## Banco de Dados
+### Banco de Dados
 
-* MySQL
+* **SQLite** (padrão, embutido — zero configuração)
+* MySQL (opcional, para uso em produção multiusuário — veja [Rodando em produção com MySQL](#-rodando-em-produção-com-mysql))
 
-## Ferramentas
+### Ferramentas
 
 * IntelliJ IDEA
 * Maven
@@ -75,7 +86,7 @@ O projeto foi desenvolvido com foco na organização das informações, automati
 
 ---
 
-# 🏗️ Arquitetura do Projeto
+## 🏗️ Arquitetura do Projeto
 
 O projeto foi organizado seguindo uma separação por responsabilidades:
 
@@ -110,57 +121,44 @@ src
 
 ---
 
-# ⚙️ Como Executar o Projeto
+## ⚙️ Como Executar o Projeto
 
-## 1. Pré-requisitos
+### 1. Pré-requisitos
 
 Antes de executar, tenha instalado:
 
 * Java JDK 17 ou superior;
-* MySQL;
-* IntelliJ IDEA (ou IDE compatível);
-* Maven.
+* Maven;
+* IntelliJ IDEA (ou IDE compatível).
 
----
+Não é necessário instalar SQLite separadamente — o driver já vem embutido nas dependências do projeto.
 
-## 2. Configuração do Banco de Dados
+### 2. Banco de Dados
 
-Crie um banco MySQL:
+Não é preciso criar nem configurar nenhum banco antes de rodar. Por padrão, a aplicação usa **SQLite** e o arquivo `capestagio.db` é criado automaticamente, na pasta do programa, na primeira execução (via `hibernate.hbm2ddl.auto=update`).
 
-```sql
-CREATE DATABASE capestagio;
-```
+Se quiser guardar o banco em outro caminho, defina a variável de ambiente `CAPESTAGIO_DB_URL` (ex: `jdbc:sqlite:C:/caminho/capestagio.db`) antes de rodar — isso é opcional.
 
-Depois configure as credenciais no arquivo:
+### 3. Executando a Aplicação
 
-```
-src/main/resources/META-INF/persistence.xml
-```
-
-Altere:
-
-```xml
-<property name="jakarta.persistence.jdbc.user" value="root"/>
-<property name="jakarta.persistence.jdbc.password" value="1234"/>
-```
-
-conforme sua configuração local.
-
----
-
-## 3. Executando a Aplicação
-
-Execute a classe:
+Pela IDE, execute a classe:
 
 ```
 src/main/java/org/example/Main.java
+```
+
+Ou via terminal:
+
+```bash
+mvn clean package
+java -jar target/CapEstagio.jar
 ```
 
 A aplicação iniciará a tela principal do sistema.
 
 ---
 
-# 🖥️ Interface do Sistema
+## 🖥️ Interface do Sistema
 
 O sistema possui uma interface gráfica desktop com telas independentes para:
 
@@ -172,27 +170,68 @@ O sistema possui uma interface gráfica desktop com telas independentes para:
 
 ---
 
-# 📚 Conceitos Aplicados
+## 📦 Gerando o instalador Windows (.exe)
+
+O projeto usa o `maven-shade-plugin` para empacotar todas as dependências (Hibernate, driver SQLite) num único jar (`target/CapEstagio.jar`), usado como entrada para o `jpackage`:
+
+```bash
+mvn clean package
+
+jpackage ^
+  --input target ^
+  --name CapEstagio ^
+  --main-jar CapEstagio.jar ^
+  --main-class org.example.Main ^
+  --type exe ^
+  --icon src/main/resources/logo.ico ^
+  --win-shortcut ^
+  --win-menu ^
+  --app-version 1.0
+```
+
+> Requer JDK 17+ com `jpackage` e o [WiX Toolset](https://wixtoolset.org/) instalado (Windows, para gerar `.exe`).
+
+Como a versão padrão usa SQLite, o instalador já roda "out of the box" — pode ser distribuído direto como GitHub Release, sem precisar de nenhum script de banco.
+
+---
+
+## 🐬 Rodando em produção com MySQL
+
+Para uso real (multiusuário, com banco centralizado), é possível reconfigurar o projeto para MySQL, revertendo 3 pontos:
+
+1. **`pom.xml`** — trocar a dependência `sqlite-jdbc` + `hibernate-community-dialects` pela `mysql-connector-j`.
+2. **`src/main/resources/META-INF/persistence.xml`** — trocar o driver para `com.mysql.cj.jdbc.Driver` e remover a propriedade `hibernate.dialect` (detectado automaticamente).
+3. **`src/main/java/org/example/Util/DatabaseConfig.java`** — voltar a ler usuário, senha e URL das variáveis de ambiente (`CAPESTAGIO_DB_URL`, `CAPESTAGIO_DB_USER`, `CAPESTAGIO_DB_PASSWORD`), com padrão `jdbc:mysql://localhost:3306/capestagio`.
+
+Depois disso, crie o banco `capestagio` — automaticamente (rodando o app uma vez, com `hbm2ddl.auto=update`) ou manualmente com o script pronto [`capestagio_schema.sql`](./capestagio_schema.sql):
+
+```bash
+mysql -u root -p < capestagio_schema.sql
+```
+
+---
+
+## 📚 Conceitos Aplicados
 
 Durante o desenvolvimento foram aplicados conceitos como:
 
 * Programação Orientada a Objetos (POO);
 * Encapsulamento;
-* Organização em camadas;
+* Organização em camadas (Model, Repository, View);
 * CRUD completo;
 * Persistência com Hibernate;
 * Mapeamento objeto-relacional (ORM);
-* Validação de dados;
+* Validação de dados (e-mail, telefone, CNPJ com dígito verificador);
 * Separação entre interface e regras de negócio.
 
 ---
 
-# 👩‍💻 Desenvolvimento
+## 👩‍💻 Desenvolvimento
 
-Projeto desenvolvido como parte de estudos e prática de desenvolvimento de sistemas, aplicando conceitos de engenharia de software, banco de dados e desenvolvimento Java.
+Projeto desenvolvido pela equipe **Capivaras Tech** como entrega acadêmica, aplicando conceitos de engenharia de software, persistência de dados e desenvolvimento Java.
 
 ---
 
-# 📄 Licença
+## 📄 Licença
 
 Este projeto foi desenvolvido para fins acadêmicos e educacionais.
