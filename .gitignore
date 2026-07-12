@@ -5,6 +5,8 @@ dependency-reduced-pom.xml
 # IntelliJ IDEA
 .idea/
 *.iml
+*.iws
+*.ipr
 out/
 
 # Instalador (vai como GitHub Release, não versionado aqui)
