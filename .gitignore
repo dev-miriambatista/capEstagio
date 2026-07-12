@@ -1,0 +1,22 @@
+# Build Maven
+target/
+dependency-reduced-pom.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Instalador (vai como GitHub Release, não versionado aqui)
+*.exe
+
+# Banco de dados local / dados de teste
+*.db
+*.db-journal
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

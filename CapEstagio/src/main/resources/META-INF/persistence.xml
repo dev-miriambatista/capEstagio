@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="CapEStoque" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>org.example.Model.Aluno</class>
+        <class>org.example.Model.Empresa</class>
+        <class>org.example.Model.Vaga</class>
+        <class>org.example.Model.Candidatura</class>
+        <class>org.example.Model.Acompanhamento</class>
+        <class>org.example.Model.Encerramento</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="org.sqlite.JDBC"/>
+            <property name="hibernate.dialect"
+                      value="org.hibernate.community.dialect.SQLiteDialect"/>
+            <!-- url NAO fica aqui: e injetada em tempo de execucao por
+                 org.example.Util.DatabaseConfig. SQLite nao usa user/password
+                 (e um arquivo local), entao essas propriedades foram removidas.
+                 Veja o README para instrucoes de como voltar a usar MySQL em
+                 producao. -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
