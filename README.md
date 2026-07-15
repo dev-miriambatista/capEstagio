@@ -12,7 +12,7 @@ Projeto desenvolvido pela equipe **Capivaras Tech**, como entrega da disciplina 
 
 ## 📦 Download
 
-**[Baixar o instalador (.exe)](#)** — disponível na página de [Releases](#) *(link a atualizar)*
+**[Baixar o instalador (.exe)](https://github.com/dev-miriambatista/capEstagio/releases/download/v1.0.1/CapEstagio-1.0.exe)** — disponível na página de [Releases](https://github.com/dev-miriambatista/capEstagio/releases)
 
 Não precisa instalar nenhum banco de dados nem configurar nada: o sistema usa **SQLite embutido**, e o banco (`capestagio.db`) é criado automaticamente na primeira execução.
 
