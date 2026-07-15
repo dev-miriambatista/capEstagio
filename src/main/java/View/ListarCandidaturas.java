@@ -137,5 +137,10 @@ public class ListarCandidaturas extends JInternalFrame {
                     c.getStatus()
             });
         }
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Não há candidaturas cadastradas no momento.",
+                    "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

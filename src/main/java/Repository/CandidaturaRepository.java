@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Candidatura;
 
@@ -12,8 +11,7 @@ import java.util.List;
 
 public class CandidaturaRepository {
 
-    private static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     private static final DateTimeFormatter FORMATO_DATA =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

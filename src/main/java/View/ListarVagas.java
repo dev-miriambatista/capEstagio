@@ -106,6 +106,11 @@ public class ListarVagas extends JInternalFrame {
                     v.getEmpresa() != null ? v.getEmpresa().getNFantasia() : "—"
             });
         }
+        if (vagas.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Não há vagas cadastradas no momento.",
+                    "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void carregarEmpresas() {

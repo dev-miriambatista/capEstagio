@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Aluno;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class AlunoRepository {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     public static void cadastrar(Aluno aluno) {
         EntityManager entityManager = emf.createEntityManager();

@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Acompanhamento;
 
@@ -10,8 +9,7 @@ import java.util.List;
 
 public class AcompanhamentoRepository {
 
-    // Carrega a unidade de persistência definida no seu persistence.xml
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     // Método para salvar um novo acompanhamento no banco de dados
     public void cadastrar(Acompanhamento acompanhamento) {

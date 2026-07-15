@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Encerramento;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class EncerramentoRepository {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     public void cadastrar(Encerramento encerramento) {
         EntityManager em = emf.createEntityManager();

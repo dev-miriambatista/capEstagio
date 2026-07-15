@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Vaga;
 
@@ -10,8 +9,7 @@ import java.util.List;
 
 public class VagaRepository {
 
-    private static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     public void cadastrar(Vaga vaga) {
         EntityManager em = emf.createEntityManager();

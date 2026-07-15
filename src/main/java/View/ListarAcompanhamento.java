@@ -90,6 +90,11 @@ public class ListarAcompanhamento extends JInternalFrame {
                         a.getSupervisor()
                 });
             }
+            if (acompanhamentosExibidos.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Não há acompanhamentos cadastrados no momento.",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar acompanhamentos: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);

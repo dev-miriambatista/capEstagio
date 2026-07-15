@@ -185,9 +185,14 @@ public class ListarEmpresa extends JInternalFrame {
                         empresa.getContato()
                 });
             }
+            if (empresasExibidas.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Não há empresas cadastradas no momento.",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar empresas: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
+    }

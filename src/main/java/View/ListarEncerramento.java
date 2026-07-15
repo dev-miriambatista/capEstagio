@@ -90,6 +90,11 @@ public class ListarEncerramento extends JInternalFrame {
                         enc.getStatusFinal()
                 });
             }
+            if (encerramentosExibidos.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Não há encerramentos cadastrados no momento.",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar encerramentos: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);

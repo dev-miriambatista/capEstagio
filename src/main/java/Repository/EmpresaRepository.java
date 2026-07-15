@@ -2,7 +2,6 @@ package Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.Model.Empresa;
 
@@ -10,8 +9,7 @@ import java.util.List;
 
 public class EmpresaRepository {
 
-    private static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("CapEStoque");
+    private static EntityManagerFactory emf = PersistenceConfig.getEntityManagerFactory();
 
     public static void cadastrar(Empresa empresa) {
         EntityManager entityManager = emf.createEntityManager();

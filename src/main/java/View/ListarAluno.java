@@ -192,6 +192,11 @@ public class ListarAluno extends JInternalFrame {
                         aluno.getTelefone()
                 });
             }
+            if (alunosExibidos.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Não há alunos cadastrados no momento.",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar alunos: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
